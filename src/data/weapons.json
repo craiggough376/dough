@@ -1,0 +1,16 @@
+{
+  "melee": [
+    {
+      "sword": {
+        "damage": 10,
+        "weight": 2
+      }
+    },
+    {
+      "dagger": {
+        "damage": 20,
+        "weight": 1
+      }
+    }
+  ]
+}
