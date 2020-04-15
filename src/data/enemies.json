@@ -1,0 +1,28 @@
+{
+  "enemies": [
+    {
+      "type": "Contagion",
+      "health": 10,
+      "weapon": {
+        "name": "Coughing",
+        "damage": 2
+      }
+    },
+    {
+      "type": "Idiot",
+      "health": 20,
+      "weapon": {
+        "name": "Hugging",
+        "damage": 10
+      }
+    },
+    {
+      "type": "Politician",
+      "health": 50,
+      "weapon": {
+        "name": "Austerity",
+        "damage": 30
+      }
+    }
+  ]
+}

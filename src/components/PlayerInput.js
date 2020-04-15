@@ -5,18 +5,31 @@ import Weapons from "../data/weapons.json";
 
 export default function PlayerInput() {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
+  const [weapon, setWeapon] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
-    setName(event.target.name.value);
-    dispatch({ type: "SET_NAME", data: event.target.name.value });
+    dispatch({
+      type: "SET_PLAYER",
+      data: {
+        name: event.target.name.value,
+        weapon,
+      },
+    });
     navigate("/level_one");
   }
 
-  const weaponOptions = Weapons.melee.map((weapon) => {
-    return <option value={weapon}>{Object.keys(weapon)}</option>;
+  const weaponOptions = Weapons.melee.map((weapon, index) => {
+    return (
+      <option value={index} key={index}>
+        {Object.keys(weapon)}
+      </option>
+    );
   });
+
+  function handleChange(event) {
+    setWeapon(Weapons.melee[event.target.value]);
+  }
 
   return (
     <>
@@ -24,7 +37,12 @@ export default function PlayerInput() {
         <label htmlFor="name">Name</label>
         <input type="text" id="name" name="name"></input>
         <label htmlFor="weapon">Weapon</label>
-        <select>{weaponOptions}</select>
+        <select onChange={handleChange} defaultValue={"DEFAULT"}>
+          <option disabled value="DEFAULT">
+            Choose a weapon...
+          </option>
+          {weaponOptions}
+        </select>
         <input type="submit" value="submit"></input>
       </form>
     </>

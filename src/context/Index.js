@@ -4,7 +4,14 @@ import Reducer from "./Reducer";
 export const Context = React.createContext();
 const defaultState = {
   player: {
+    name: "Craig",
     health: 100,
+    weapon: {
+      sword: {
+        damage: 10,
+        weight: 2,
+      },
+    },
   },
 };
 
