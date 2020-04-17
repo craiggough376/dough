@@ -7,10 +7,9 @@ const defaultState = {
     name: "Craig",
     health: 100,
     weapon: {
-      sword: {
-        damage: 10,
-        weight: 2,
-      },
+      name: "Hand Sanitiser",
+      damage: 10,
+      weight: 2,
     },
   },
 };

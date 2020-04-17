@@ -1,16 +1,14 @@
 {
-  "melee": [
+  "attacks": [
     {
-      "sword": {
-        "damage": 10,
-        "weight": 2
-      }
+      "name": "Hand Sanitiser",
+      "damage": 10,
+      "weight": 2
     },
     {
-      "dagger": {
-        "damage": 20,
-        "weight": 1
-      }
+      "name": "Face Mask",
+      "damage": 20,
+      "weight": 1
     }
   ]
 }

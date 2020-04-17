@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "../context";
+import StatTable from "./StatTable";
 
 export default function Enemy() {
   const { player, enemy } = useSelector((state) => state);
@@ -16,13 +17,10 @@ export default function Enemy() {
       data: health,
     });
   }
-
   return (
     <>
-      <p>A wild {enemy.type} has appeared!!</p>
-      <button onClick={() => playerTakeDamage(enemy.weapon.damage)}>
-        Attack Player!
-      </button>
+      <p>A wild {enemy.name} has appeared!!</p>
+      <StatTable character={enemy} />
     </>
   );
 }

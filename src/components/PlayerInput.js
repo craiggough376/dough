@@ -19,16 +19,16 @@ export default function PlayerInput() {
     navigate("/level_one");
   }
 
-  const weaponOptions = Weapons.melee.map((weapon, index) => {
+  const weaponOptions = Weapons.attacks.map((weapon, index) => {
     return (
       <option value={index} key={index}>
-        {Object.keys(weapon)}
+        {weapon.name}
       </option>
     );
   });
 
   function handleChange(event) {
-    setWeapon(Weapons.melee[event.target.value]);
+    setWeapon(Weapons.attacks[event.target.value]);
   }
 
   return (
