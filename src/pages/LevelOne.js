@@ -1,17 +1,23 @@
-import React, { useState } from "react";
-import { useSelector } from "../context";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "../context";
 import Enemies from "../data/enemies";
 import Enemy from "../components/Enemy";
 
 export default function LevelOne() {
   const player = useSelector((state) => state.player);
   const [showEnemy, setShowEnemy] = useState(false);
+  useEffect(() => {
+    getRandomEnemy();
+  }, []);
+
+  const dispatch = useDispatch();
 
   function getRandomEnemy() {
     const random = Math.floor(
       Math.random() * Math.floor(Enemies.enemies.length)
     );
-    return Enemies.enemies[random];
+    const randomEnemy = Enemies.enemies[random];
+    dispatch({ type: "SET_ENEMY", data: randomEnemy });
   }
 
   function waitForEnemy() {
@@ -25,7 +31,7 @@ export default function LevelOne() {
   return (
     <>
       <p>Greetings {player.name}</p>
-      {showEnemy ? <Enemy enemy={getRandomEnemy()} /> : null}
+      {showEnemy ? <Enemy /> : null}
     </>
   );
 }

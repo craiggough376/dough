@@ -9,6 +9,19 @@ export default function Reducer(state, action) {
           weapon: action.data.weapon,
         },
       };
+    case "SET_HEALTH":
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          health: action.data,
+        },
+      };
+    case "SET_ENEMY":
+      return {
+        ...state,
+        enemy: action.data,
+      };
     default:
       return state;
   }
