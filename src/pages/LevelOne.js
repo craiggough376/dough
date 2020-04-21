@@ -3,12 +3,17 @@ import { useSelector, useDispatch } from "../context";
 import Enemies from "../data/enemies";
 import Enemy from "../components/Enemy";
 import { navigate } from "@reach/router";
+import "./LevelOne.css";
 
 export default function LevelOne() {
   const { player, enemy } = useSelector((state) => state);
   const [showEnemy, setShowEnemy] = useState(false);
+  const [showEnemyAttack, setShowEnemyAttack] = useState(false);
   useEffect(() => {
     getRandomEnemy();
+    return () => {
+      console.log("CLEANUP!");
+    };
   }, []);
 
   const dispatch = useDispatch();
@@ -39,9 +44,13 @@ export default function LevelOne() {
     const health = (enemy.health -= amount);
     dispatch({ type: "SET_ENEMY_HEALTH", data: health });
     if (enemy.health <= 0) {
-      navigate("/");
+      navigate("/level_two");
     } else {
       setTimeout(function () {
+        setShowEnemyAttack(true);
+        setTimeout(function () {
+          setShowEnemyAttack(false);
+        }, 3000);
         playerTakeDamage(enemy.weapon.damage);
       }, 3000);
     }
@@ -50,20 +59,24 @@ export default function LevelOne() {
   waitForEnemy();
 
   return (
-    <>
+    <div className="enemy-container">
       <p>Greetings {player.name}</p>
       {showEnemy ? (
         <>
-          <Enemy />
-          <button
-            onClick={() => {
-              attackEnemy(player.weapon.damage);
-            }}
-          >
-            Attack Enemy!!
-          </button>
+          <Enemy css={showEnemyAttack} />
+          {showEnemyAttack ? (
+            <p>Enemy Attacks!!</p>
+          ) : (
+            <button
+              onClick={() => {
+                attackEnemy(player.weapon.damage);
+              }}
+            >
+              Attack Enemy!!
+            </button>
+          )}
         </>
       ) : null}
-    </>
+    </div>
   );
 }

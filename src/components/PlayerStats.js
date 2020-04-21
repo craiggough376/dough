@@ -4,11 +4,5 @@ import StatTable from "./StatTable";
 
 export default function PlayerStats() {
   const { player } = useSelector((state) => state);
-  return (
-    <>
-      {player.name ? (
-        <StatTable character={player} weapon={Object.keys(player.weapon)} />
-      ) : null}
-    </>
-  );
+  return <>{player.name ? <StatTable character={player} /> : null}</>;
 }

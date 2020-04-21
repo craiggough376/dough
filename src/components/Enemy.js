@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "../context";
 import StatTable from "./StatTable";
+import "./Enemy.css";
 
-export default function Enemy() {
+export default function Enemy({ css }) {
   const { player, enemy } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -18,9 +19,9 @@ export default function Enemy() {
     });
   }
   return (
-    <>
+    <div className={css ? "enemy-attack" : null}>
       <p>A wild {enemy.name} has appeared!!</p>
       <StatTable character={enemy} />
-    </>
+    </div>
   );
 }
