@@ -5,8 +5,8 @@ import { createProvider } from "./context/index";
 import { Router } from "@reach/router";
 import LevelOne from "./pages/LevelOne";
 import LevelTwo from "./pages/LevelTwo";
+import Dead from "./pages/Dead";
 import PlayerStats from "./components/PlayerStats";
-// import LevelOne from "./pages/LevelOne";
 const Provider = createProvider({});
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
           <MainContainer path="/" />
           <LevelOne path="/level_one" />
           <LevelTwo path="/level_two" />
+          <Dead path="/dead" />
         </Router>
       </div>
     </Provider>

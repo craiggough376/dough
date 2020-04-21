@@ -9,27 +9,30 @@ export default function LevelOne() {
   const { player, enemy } = useSelector((state) => state);
   const [showEnemy, setShowEnemy] = useState(false);
   const [showEnemyAttack, setShowEnemyAttack] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    function getRandomEnemy() {
+      const random = Math.floor(
+        Math.random() * Math.floor(Enemies.enemies.length)
+      );
+      const randomEnemy = Enemies.enemies[random];
+      dispatch({ type: "SET_ENEMY", data: randomEnemy });
+    }
     getRandomEnemy();
     return () => {
       console.log("CLEANUP!");
     };
-  }, []);
-
-  const dispatch = useDispatch();
-
-  function getRandomEnemy() {
-    const random = Math.floor(
-      Math.random() * Math.floor(Enemies.enemies.length)
-    );
-    const randomEnemy = Enemies.enemies[random];
-    dispatch({ type: "SET_ENEMY", data: randomEnemy });
-  }
+  }, [dispatch]);
 
   function waitForEnemy() {
     setTimeout(function () {
       setShowEnemy(true);
-    }, 3000);
+      setTimeout(function () {
+        setShowButton(true);
+      }, 1000);
+    }, 1000);
   }
 
   function playerTakeDamage(damageAmount) {
@@ -38,21 +41,25 @@ export default function LevelOne() {
       type: "SET_HEALTH",
       data: health,
     });
+    setShowButton(true);
   }
 
   function attackEnemy(amount) {
+    if (player.health <= 0) {
+      dispatch({ type: "SET_HEALTH", data: 0 });
+      navigate("/dead");
+    }
+    setShowButton(false);
     const health = (enemy.health -= amount);
     dispatch({ type: "SET_ENEMY_HEALTH", data: health });
     if (enemy.health <= 0) {
       navigate("/level_two");
     } else {
+      setShowEnemyAttack(true);
       setTimeout(function () {
-        setShowEnemyAttack(true);
-        setTimeout(function () {
-          setShowEnemyAttack(false);
-        }, 3000);
         playerTakeDamage(enemy.weapon.damage);
-      }, 3000);
+        setShowEnemyAttack(false);
+      }, 1000);
     }
   }
 
@@ -64,9 +71,10 @@ export default function LevelOne() {
       {showEnemy ? (
         <>
           <Enemy css={showEnemyAttack} />
-          {showEnemyAttack ? (
-            <p>Enemy Attacks!!</p>
-          ) : (
+
+          {showEnemyAttack ? <p>Enemy Attacks!!</p> : null}
+
+          {showButton ? (
             <button
               onClick={() => {
                 attackEnemy(player.weapon.damage);
@@ -74,7 +82,7 @@ export default function LevelOne() {
             >
               Attack Enemy!!
             </button>
-          )}
+          ) : null}
         </>
       ) : null}
     </div>
