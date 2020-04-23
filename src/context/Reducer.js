@@ -38,6 +38,14 @@ export default function Reducer(state, action) {
           experiencePoints: action.data,
         },
       };
+    case "SET_POTION":
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          potion: action.data,
+        },
+      };
     default:
       return state;
   }
