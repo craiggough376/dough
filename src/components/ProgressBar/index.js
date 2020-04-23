@@ -3,6 +3,7 @@ import ProgressLine from "./ProgressLine";
 
 export default function ProgressBar({ character }) {
   const percentageLevel = (character.health / character.originalHealth) * 100;
+
   const percentageColour = () => {
     if (percentageLevel >= 80) {
       return "green";
