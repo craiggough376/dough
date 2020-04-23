@@ -30,6 +30,14 @@ export default function Reducer(state, action) {
           health: action.data,
         },
       };
+    case "SET_EXPERIENCE":
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          experiencePoints: action.data,
+        },
+      };
     default:
       return state;
   }
