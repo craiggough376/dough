@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import MainContainer from "./containers/MainContainer";
-import { createProvider, useSelector } from "./context";
+import { createProvider } from "./context";
 import { Router } from "@reach/router";
 import LevelOne from "./pages/LevelOne";
 import LevelTwo from "./pages/LevelTwo";

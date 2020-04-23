@@ -10,6 +10,7 @@ export default function LevelOne() {
   const [showEnemy, setShowEnemy] = useState(false);
   const [showEnemyAttack, setShowEnemyAttack] = useState(false);
   const [showButton, setShowButton] = useState(false);
+
   const dispatch = useDispatch();
 
   useEffect(() => {

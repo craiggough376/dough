@@ -10,5 +10,15 @@
       "damage": 20,
       "weight": 1
     }
+  ],
+  "health": [
+    {
+      "name": "Aspirin",
+      "healthAmount": 2
+    },
+    {
+      "name": "Hydroxychloroquine",
+      "healthAmount": 100
+    }
   ]
 }
