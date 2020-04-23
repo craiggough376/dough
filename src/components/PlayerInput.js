@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "../context";
+import { useDispatch } from "../context/Index";
 import { navigate } from "@reach/router";
 import Weapons from "../data/weapons.json";
 

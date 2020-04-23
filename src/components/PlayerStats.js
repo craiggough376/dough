@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "../context";
+import { useSelector } from "../context/Index";
 import StatTable from "./StatTable";
 import ProgressBar from "./ProgressBar";
 export default function PlayerStats() {

@@ -2,7 +2,7 @@ import React from "react";
 import ProgressBar from "./ProgressBar";
 import StatTable from "./StatTable";
 import "./Enemy.css";
-import { useSelector } from "../context";
+import { useSelector } from "../context/Index";
 
 export default function Enemy({ css }) {
   const { enemy } = useSelector((state) => state);

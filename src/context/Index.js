@@ -12,7 +12,7 @@ const defaultState = {
       damage: 10,
       weight: 2,
     },
-    experiencePoints: 0,
+    experiencePoints: 1,
   },
 };
 
