@@ -54,6 +54,11 @@ export default function LevelOne() {
     const health = (enemy.health -= amount);
     dispatch({ type: "SET_ENEMY_HEALTH", data: health });
     if (enemy.health <= 0) {
+      const experience = (player.experiencePoints += enemy.experienceGiven);
+      dispatch({
+        type: "SET_EXPERIENCE",
+        data: experience,
+      });
       navigate("/level_two");
     } else {
       setShowEnemyAttack(true);

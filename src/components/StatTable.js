@@ -8,11 +8,15 @@ export default function StatTable({ character }) {
           <th>Name</th>
           <th>Weapon</th>
           <th>Health</th>
+          {character.experiencePoints >= 0 ? <th>Experience</th> : null}
         </tr>
         <tr>
           <td>{character.name}</td>
           <td>{character.weapon.name}</td>
           <td>{character.health}</td>
+          {character.experiencePoints >= 0 ? (
+            <td>{character.experiencePoints}</td>
+          ) : null}
         </tr>
       </tbody>
     </table>

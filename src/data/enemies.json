@@ -7,7 +7,8 @@
       "weapon": {
         "name": "Coughing",
         "damage": 2
-      }
+      },
+      "experienceGiven": 1
     },
     {
       "name": "Idiot",
@@ -16,7 +17,8 @@
       "weapon": {
         "name": "Hugging",
         "damage": 10
-      }
+      },
+      "experienceGiven": 2
     },
     {
       "name": "Politician",
@@ -25,7 +27,8 @@
       "weapon": {
         "name": "Austerity",
         "damage": 30
-      }
+      },
+      "experienceGiven": 3
     }
   ]
 }
