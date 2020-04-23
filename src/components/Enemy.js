@@ -12,7 +12,7 @@ export default function Enemy({ css }) {
       <p>A wild {enemy.name} has appeared!!</p>
 
       <StatTable character={enemy} />
-      <ProgressBar enemy={enemy} />
+      <ProgressBar character={enemy} />
     </div>
   );
 }
