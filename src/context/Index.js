@@ -6,6 +6,7 @@ const defaultState = {
   player: {
     name: "Craig",
     health: 100,
+    originalHealth: 100,
     weapon: {
       name: "Hand Sanitiser",
       damage: 10,

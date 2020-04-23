@@ -3,6 +3,7 @@
     {
       "name": "Contagion",
       "health": 100,
+      "originalHealth": 100,
       "weapon": {
         "name": "Coughing",
         "damage": 2
@@ -12,6 +13,7 @@
     {
       "name": "Idiot",
       "health": 200,
+      "originalHealth": 200,
       "weapon": {
         "name": "Hugging",
         "damage": 10
@@ -21,6 +23,7 @@
     {
       "name": "Politician",
       "health": 500,
+      "originalHealth": 500,
       "weapon": {
         "name": "Austerity",
         "damage": 30

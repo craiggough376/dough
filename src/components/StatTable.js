@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "../context";
 
 export default function StatTable({ character }) {
   return (
