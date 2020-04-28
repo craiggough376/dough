@@ -14,18 +14,26 @@ export default function LevelOne() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    function getRandomEnemy() {
-      const random = Math.floor(
-        Math.random() * Math.floor(Enemies.enemies.length)
-      );
-      const randomEnemy = Enemies.enemies[random];
-      dispatch({ type: "SET_ENEMY", data: randomEnemy });
-    }
-    getRandomEnemy();
+    // getRandomEnemy();
+    waitForEnemy();
+    promiseFunction();
     return () => {
       console.log("CLEANUP!");
     };
   }, [dispatch]);
+
+  function getRandomEnemy() {
+    const random = Math.floor(
+      Math.random() * Math.floor(Enemies.enemies.length)
+    );
+    const randomEnemy = Enemies.enemies[random];
+    dispatch({ type: "SET_ENEMY", data: randomEnemy });
+    return randomEnemy;
+  }
+
+  function promiseFunction() {
+    Promise.resolve(getRandomEnemy()).then((enemy) => playerTakeDamage(enemy));
+  }
 
   function waitForEnemy() {
     setTimeout(function () {
@@ -34,15 +42,20 @@ export default function LevelOne() {
         setShowButton(true);
       }, 1000);
     }, 1000);
+    console.log("SETTIMEOUT");
   }
 
-  function playerTakeDamage(damageAmount) {
-    const health = (player.health -= damageAmount);
-    dispatch({
-      type: "SET_HEALTH",
-      data: health,
-    });
-    setShowButton(true);
+  function playerTakeDamage(enemy) {
+    setInterval(() => {
+      if (enemy.health > 0) {
+        const health = (player.health -= enemy.weapon.damage);
+        dispatch({
+          type: "SET_HEALTH",
+          data: health,
+        });
+      }
+      // setShowEnemyAttack(true);
+    }, 4000);
   }
 
   function attackEnemy(amount) {
@@ -63,13 +76,19 @@ export default function LevelOne() {
     } else {
       setShowEnemyAttack(true);
       setTimeout(function () {
-        playerTakeDamage(enemy.weapon.damage);
-        setShowEnemyAttack(false);
+        //   // playerTakeDamage(enemy.weapon.damage);
+        setShowButton(true);
       }, 1000);
     }
   }
 
-  waitForEnemy();
+  const heal = () => {
+    let health = player.potion.healthAmount + player.health;
+    if (health > player.originalHealth) {
+      health = player.originalHealth;
+    }
+    dispatch({ type: "SET_HEALTH", data: health });
+  };
 
   return (
     <div className="enemy-container">
@@ -89,6 +108,7 @@ export default function LevelOne() {
               Attack Enemy!!
             </button>
           ) : null}
+          {player.potion ? <button onClick={heal}>Heal</button> : null}
         </>
       ) : null}
     </div>
