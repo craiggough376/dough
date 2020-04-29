@@ -1,6 +1,7 @@
 import React from "react";
-import ProgressBar from "./ProgressBar";
-import StatTable from "./StatTable";
+// import ProgressBar from "./ProgressBar";
+// import StatTable from "./StatTable";
+import { ProgressBar, StatTable } from "./index";
 import "./Enemy.css";
 import { useSelector } from "../context/Index";
 

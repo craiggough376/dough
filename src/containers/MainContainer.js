@@ -1,6 +1,5 @@
 import React from "react";
-import PlayerInput from "../components/PlayerInput";
-import PotionGift from "../components/Gift/PotionGift";
+import { PlayerInput, PotionGift } from "../components";
 
 export default function MainContainer() {
   return (

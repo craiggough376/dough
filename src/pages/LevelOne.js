@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "../context/Index.js";
 import Enemies from "../data/enemies";
-import Enemy from "../components/Enemy";
+import { Enemy } from "../components";
 import { navigate } from "@reach/router";
 import "./LevelOne.css";
 
@@ -14,26 +14,33 @@ export default function LevelOne() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // getRandomEnemy();
     waitForEnemy();
+    function playerTakeDamage(enemy) {
+      setInterval(() => {
+        if (enemy.health > 0) {
+          const health = (player.health -= enemy.weapon.damage);
+          dispatch({
+            type: "SET_HEALTH",
+            data: health,
+          });
+        }
+      }, 4000);
+    }
+    function promiseFunction() {
+      Promise.resolve(getRandomEnemy()).then((enemy) =>
+        playerTakeDamage(enemy)
+      );
+    }
+    function getRandomEnemy() {
+      const random = Math.floor(
+        Math.random() * Math.floor(Enemies.enemies.length)
+      );
+      const randomEnemy = Enemies.enemies[random];
+      dispatch({ type: "SET_ENEMY", data: randomEnemy });
+      return randomEnemy;
+    }
     promiseFunction();
-    return () => {
-      console.log("CLEANUP!");
-    };
-  }, [dispatch]);
-
-  function getRandomEnemy() {
-    const random = Math.floor(
-      Math.random() * Math.floor(Enemies.enemies.length)
-    );
-    const randomEnemy = Enemies.enemies[random];
-    dispatch({ type: "SET_ENEMY", data: randomEnemy });
-    return randomEnemy;
-  }
-
-  function promiseFunction() {
-    Promise.resolve(getRandomEnemy()).then((enemy) => playerTakeDamage(enemy));
-  }
+  }, [dispatch, player]);
 
   function waitForEnemy() {
     setTimeout(function () {
@@ -43,19 +50,6 @@ export default function LevelOne() {
       }, 1000);
     }, 1000);
     console.log("SETTIMEOUT");
-  }
-
-  function playerTakeDamage(enemy) {
-    setInterval(() => {
-      if (enemy.health > 0) {
-        const health = (player.health -= enemy.weapon.damage);
-        dispatch({
-          type: "SET_HEALTH",
-          data: health,
-        });
-      }
-      // setShowEnemyAttack(true);
-    }, 4000);
   }
 
   function attackEnemy(amount) {
