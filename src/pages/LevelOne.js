@@ -12,6 +12,7 @@ export default function LevelOne() {
   const [showButton, setShowButton] = useState(false);
   const [showBlockButton, setShowBlockButton] = useState(false);
   const [startTime, setStartTime] = useState(0);
+  const [boxPosition, setBoxPosition] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -72,6 +73,7 @@ export default function LevelOne() {
       const beginTime = Date.now();
       console.log(beginTime);
       setStartTime(beginTime);
+      randomBoxPosition();
     }, time);
   }
 
@@ -81,7 +83,7 @@ export default function LevelOne() {
     const reactionTime = (clickedTime - startTime) / 1000;
     // setScore(reactionTime);
     console.log(reactionTime);
-    if (reactionTime < 0.5) {
+    if (reactionTime < 0.8) {
       attackEnemy(player.weapon.damage);
     } else {
       playerTakeDamage(enemy.weapon.damage);
@@ -116,6 +118,13 @@ export default function LevelOne() {
     }
   }
 
+  function randomBoxPosition() {
+    const top = Math.floor(Math.random() * 80);
+    const left = Math.floor(Math.random() * 65);
+    const randomPositions = [top, left];
+    setBoxPosition(randomPositions);
+  }
+
   waitForEnemy();
 
   return (
@@ -137,9 +146,18 @@ export default function LevelOne() {
               Begin Round!
             </button>
           ) : null}
-          {showBlockButton ? (
-            <div className="reaction-box" onClick={blockAttack}></div>
-          ) : null}
+          <div className="arena-box">
+            {showBlockButton ? (
+              <div
+                className="reaction-box"
+                onClick={blockAttack}
+                style={{
+                  top: boxPosition[0] + "%",
+                  left: boxPosition[1] + "%",
+                }}
+              ></div>
+            ) : null}
+          </div>
         </>
       ) : null}
     </div>
