@@ -10,6 +10,8 @@ export default function LevelOne() {
   const [showEnemy, setShowEnemy] = useState(false);
   const [showEnemyAttack, setShowEnemyAttack] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [showBlockButton, setShowBlockButton] = useState(false);
+  const [startTime, setStartTime] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -27,22 +29,67 @@ export default function LevelOne() {
     };
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   debugger;
+  //   function enemyAttack() {
+  //     while (enemy.health > 0) {
+  //       const randomTime = Math.floor(Math.random() * (4000 - 1000) + 1000);
+  //       console.log(randomTime);
+  //     }
+  //   }
+  //   enemyAttack();
+  // }, [enemy]);
+
+  const randomTime = Math.floor(Math.random() * (4000 - 1000) + 1000);
+
   function waitForEnemy() {
     setTimeout(function () {
       setShowEnemy(true);
       setTimeout(function () {
         setShowButton(true);
       }, 1000);
-    }, 1000);
+    }, randomTime);
   }
 
   function playerTakeDamage(damageAmount) {
     const health = (player.health -= damageAmount);
+    if (player.health <= 0) {
+      dispatch({ type: "SET_HEALTH", data: 0 });
+      navigate("/dead");
+    }
     dispatch({
       type: "SET_HEALTH",
       data: health,
     });
     setShowButton(true);
+  }
+
+  function startTimeAttack() {
+    const time = Math.random() * 5000;
+
+    setTimeout(function () {
+      setShowBlockButton(true);
+      const beginTime = Date.now();
+      console.log(beginTime);
+      setStartTime(beginTime);
+    }, time);
+  }
+
+  function blockAttack() {
+    // setShowAttack(false);
+    const clickedTime = Date.now();
+    const reactionTime = (clickedTime - startTime) / 1000;
+    // setScore(reactionTime);
+    console.log(reactionTime);
+    if (reactionTime < 0.5) {
+      attackEnemy(player.weapon.damage);
+    } else {
+      playerTakeDamage(enemy.weapon.damage);
+    }
+    setShowBlockButton(false);
+    if (enemy.health > 0) {
+      startTimeAttack();
+    }
   }
 
   function attackEnemy(amount) {
@@ -62,10 +109,10 @@ export default function LevelOne() {
       navigate("/level_two");
     } else {
       setShowEnemyAttack(true);
-      setTimeout(function () {
-        playerTakeDamage(enemy.weapon.damage);
-        setShowEnemyAttack(false);
-      }, 1000);
+      // setTimeout(function () {
+      //   playerTakeDamage(enemy.weapon.damage);
+      //   setShowEnemyAttack(false);
+      // }, 1000);
     }
   }
 
@@ -83,11 +130,15 @@ export default function LevelOne() {
           {showButton ? (
             <button
               onClick={() => {
-                attackEnemy(player.weapon.damage);
+                // attackEnemy(player.weapon.damage);
+                startTimeAttack();
               }}
             >
-              Attack Enemy!!
+              Begin Round!
             </button>
+          ) : null}
+          {showBlockButton ? (
+            <div className="reaction-box" onClick={blockAttack}></div>
           ) : null}
         </>
       ) : null}
