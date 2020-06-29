@@ -13,6 +13,7 @@ export default function LevelOne() {
   const [showBlockButton, setShowBlockButton] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [boxPosition, setBoxPosition] = useState([]);
+  const [reactionSpeed, setReactionSpeed] = useState(0.75);
 
   const dispatch = useDispatch();
 
@@ -83,7 +84,7 @@ export default function LevelOne() {
     const reactionTime = (clickedTime - startTime) / 1000;
     // setScore(reactionTime);
     console.log(reactionTime);
-    if (reactionTime < 0.8) {
+    if (reactionTime < reactionSpeed) {
       attackEnemy(player.weapon.damage);
     } else {
       playerTakeDamage(enemy.weapon.damage);
@@ -119,8 +120,8 @@ export default function LevelOne() {
   }
 
   function randomBoxPosition() {
-    const top = Math.floor(Math.random() * 80);
-    const left = Math.floor(Math.random() * 65);
+    const top = Math.floor(Math.random() * 65);
+    const left = Math.floor(Math.random() * 90);
     const randomPositions = [top, left];
     setBoxPosition(randomPositions);
   }
