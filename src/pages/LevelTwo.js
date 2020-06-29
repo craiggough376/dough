@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "../context/Index.js";
 import Enemies from "../data/enemies";
-import Enemy from "../components/Enemy";
+import { Enemy } from "../components";
 import { navigate } from "@reach/router";
 import "./LevelOne.css";
 

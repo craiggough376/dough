@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "../context/Index.js";
 import Enemies from "../data/enemies";
-import Enemy from "../components/Enemy";
+import { Enemy } from "../components";
 import { navigate } from "@reach/router";
 import "./LevelOne.css";
 
@@ -18,18 +18,33 @@ export default function LevelOne() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    waitForEnemy();
+    function playerTakeDamage(enemy) {
+      setInterval(() => {
+        if (enemy.health > 0) {
+          const health = (player.health -= enemy.weapon.damage);
+          dispatch({
+            type: "SET_HEALTH",
+            data: health,
+          });
+        }
+      }, 4000);
+    }
+    function promiseFunction() {
+      Promise.resolve(getRandomEnemy()).then((enemy) =>
+        playerTakeDamage(enemy)
+      );
+    }
     function getRandomEnemy() {
       const random = Math.floor(
         Math.random() * Math.floor(Enemies.enemies.length)
       );
       const randomEnemy = Enemies.enemies[random];
       dispatch({ type: "SET_ENEMY", data: randomEnemy });
+      return randomEnemy;
     }
-    getRandomEnemy();
-    return () => {
-      console.log("CLEANUP!");
-    };
-  }, [dispatch]);
+    promiseFunction();
+  }, [dispatch, player]);
 
   // useEffect(() => {
   //   debugger;
@@ -50,6 +65,7 @@ export default function LevelOne() {
       setTimeout(function () {
         setShowButton(true);
       }, 1000);
+<<<<<<< HEAD
     }, randomTime);
   }
 
@@ -64,6 +80,10 @@ export default function LevelOne() {
       data: health,
     });
     setShowButton(true);
+=======
+    }, 1000);
+    console.log("SETTIMEOUT");
+>>>>>>> master
   }
 
   function startTimeAttack() {
@@ -112,6 +132,7 @@ export default function LevelOne() {
       navigate("/level_two");
     } else {
       setShowEnemyAttack(true);
+<<<<<<< HEAD
       // setTimeout(function () {
       //   playerTakeDamage(enemy.weapon.damage);
       //   setShowEnemyAttack(false);
@@ -127,6 +148,22 @@ export default function LevelOne() {
   }
 
   waitForEnemy();
+=======
+      setTimeout(function () {
+        //   // playerTakeDamage(enemy.weapon.damage);
+        setShowButton(true);
+      }, 1000);
+    }
+  }
+
+  const heal = () => {
+    let health = player.potion.healthAmount + player.health;
+    if (health > player.originalHealth) {
+      health = player.originalHealth;
+    }
+    dispatch({ type: "SET_HEALTH", data: health });
+  };
+>>>>>>> master
 
   return (
     <div className="enemy-container">
@@ -147,6 +184,7 @@ export default function LevelOne() {
               Begin Round!
             </button>
           ) : null}
+<<<<<<< HEAD
           <div className="arena-box">
             {showBlockButton ? (
               <div
@@ -159,6 +197,9 @@ export default function LevelOne() {
               ></div>
             ) : null}
           </div>
+=======
+          {player.potion ? <button onClick={heal}>Heal</button> : null}
+>>>>>>> master
         </>
       ) : null}
     </div>
